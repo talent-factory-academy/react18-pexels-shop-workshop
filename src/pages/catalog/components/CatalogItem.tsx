@@ -8,7 +8,7 @@ import { isItemInCart } from '../../cart/store/cart.selectors';
 
 export const CatalogItem: React.FC<{item: Video}> = ({ item: v }) => {
   const dispatch = useDispatch();
-  const itemInCart = useSelector(isItemInCart(v.id));
+  const itemInCart = useSelector(isItemInCart);
 
   return (
     <div className="relative">
