@@ -1,29 +1,27 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeVideo } from '../store/player/player.store';
-import { addToCart } from '../../cart/store/cart.store';
-import { getCurrentVideo } from '../store/search/search-filters.selectors';
+import { useSelector } from 'react-redux';
+import { Video } from '../../../model/pexels-video-response';
 import { isItemInCart } from '../../cart/store/cart.selectors';
 
-/**
- * Video Player
- */
-export function VideoPlayer() {
-  const isItemAlreadyInCart = useSelector(isItemInCart);
-  const video = useSelector(getCurrentVideo);
-  const dispatch = useDispatch();
+export interface VideoPlayerProps {
+  video: Video;
+  onClosePlayer: () => void;
+  onAddVideoToCart: () => void;
+}
+export function VideoPlayer(props: VideoPlayerProps) {
+  const isItemAlreadyInCart = useSelector(isItemInCart(props.video.id));
 
-  return video ? <div className="fixed flex items-center justify-center bg-white p-4 top-0 left-0 bottom-0 right-0">
+  return <div className="fixed flex items-center justify-center bg-white p-4 top-0 left-0 bottom-0 right-0">
     <div className="relative">
       <video
-        src={video?.video_files[0].link} autoPlay controls
+        src={props.video?.video_files[0].link} autoPlay controls
         width="100%" className="max-h-screen min-h-screen"
       />
 
       <button
         className="btn-circle absolute left-5 top-5"
-        onClick={() => dispatch(closeVideo())}
+        onClick={props.onClosePlayer}
       >X</button>
 
       <button
@@ -31,15 +29,14 @@ export function VideoPlayer() {
           'btn-circle absolute top-5 right-5 ',
           { 'opacity-25': isItemAlreadyInCart }
         )}
-        onClick={() => dispatch(addToCart(video))}
+        onClick={props.onAddVideoToCart}
       >+</button>
 
       <a
         className="btn-circle absolute right-5 bottom-20" rel="noreferrer"
-        href={video?.video_files[0].link} download="attachment_url" target="_blank"
+        href={props.video?.video_files[0].link} download="attachment_url" target="_blank"
       >Download</a>
 
-
     </div>
-  </div> : null
+  </div>
 }

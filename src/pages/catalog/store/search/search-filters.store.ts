@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import { searchAPI } from './search.api';
 
 export const searchFiltersStore = createSlice({
   name: 'searchFilters',

@@ -1,4 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
+import { addToCart, removeFromCart } from '../cart/store/cart.store';
+import { getSelectedVideo } from './store/player/player.selectors';
+import { closeVideo, playVideo } from './store/player/player.store';
 import { useSearchQuery } from './store/search/search.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { search } from './store/search/search-filters.store';
@@ -10,6 +13,7 @@ import { Spinner } from '../../shared/Spinner';
 export const CatalogPage: React.FC = () => {
   const [text, setText] = useState<string>('girls')
   const filters = useSelector(getFilters)
+  const selectedVideo = useSelector(getSelectedVideo);
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
@@ -51,11 +55,25 @@ export const CatalogPage: React.FC = () => {
 
       {/*List*/}
       <div className="gap-8 mx-6 sm:columns-2 md:columns-3 ">
-        {data?.map(v => <CatalogItem item={v}  key={v.id} />) }
+        {
+          data?.map(v => <CatalogItem
+            video={v}
+            key={v.id}
+            onVideoPlay={video => dispatch(playVideo(video))}
+            onAddVideoToCart={video => dispatch(addToCart(video))}
+            onRemoveVideoFromCart={video => dispatch(removeFromCart(video.id))}
+          />)
+        }
       </div>
 
       {/*Video Player*/}
-      <VideoPlayer />
+      {
+        selectedVideo && <VideoPlayer
+          video={selectedVideo}
+          onClosePlayer={() => dispatch(closeVideo())}
+          onAddVideoToCart={() => dispatch(addToCart(selectedVideo))}
+        />
+      }
     </div>
   )
 };

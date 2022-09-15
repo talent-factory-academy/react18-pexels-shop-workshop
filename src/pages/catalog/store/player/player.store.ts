@@ -1,23 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Video } from '../../../../model/pexels-video-response';
 // import { addToCart } from '../../../cart/store/cart.store';
 
 interface PlayerStore {
-  videoId: number | null
+  video: Video | null;
 }
 
 const initialState: PlayerStore = {
-  videoId: null
+  video: null
 }
 
 export const playerStore = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    playVideo(state, action: PayloadAction<number>) {
-      state.videoId = action.payload;
+    playVideo(state, action: PayloadAction<Video>) {
+      state.video = action.payload;
     },
     closeVideo(state) {
-      state.videoId = null;
+      state.video = null;
     },
   },
   extraReducers: builder => {
