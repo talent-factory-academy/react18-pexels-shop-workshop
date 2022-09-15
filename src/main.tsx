@@ -2,7 +2,7 @@ import './index.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux';
-import { combineReducers, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import App from './App'
 import { cartStore } from './pages/cart/store/cart.store';
 import { playerStore } from './pages/catalog/store/player/player.store';
@@ -10,19 +10,24 @@ import { searchFiltersStore } from './pages/catalog/store/search/search-filters.
 import { searchAPI } from './pages/catalog/store/search/search.api';
 
 const rootReducer = combineReducers({
+  // Filter State: include the search text
   searchFilters: searchFiltersStore.reducer,
-  [searchAPI.reducerPath]: searchAPI.reducer,   // <=== must be in root (no combined reducers allowed)
+  // Video Player:
   player: playerStore.reducer,
-  cart: cartStore.reducer
+  // Current Video
+  cart: cartStore.reducer,
+  // Search Result (it uses RTK Query)
+  [searchAPI.reducerPath]: searchAPI.reducer,   // <=== must be in root (no combined reducers allowed)
 });
 
-// Create the type of store based on rootReducer
+// Create the Store type based on rootReducer
 export type RootState = ReturnType<typeof rootReducer>
 
 // Configure Store
 export const store = configureStore({
+  // store
   reducer: rootReducer,
-  // https://vitejs.dev/guide/env-and-mode.html
+  // enable devtool in dev mode: https://vitejs.dev/guide/env-and-mode.html
   devTools: import.meta.env.DEV,
   // add RTK query middleware
   middleware: (defaultMiddleware) => {

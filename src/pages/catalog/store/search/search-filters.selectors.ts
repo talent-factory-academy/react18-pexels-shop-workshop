@@ -5,12 +5,20 @@ import { searchAPI } from './search.api';
 
 export const getFilters = (state: RootState) => state.searchFilters
 
-export const getCurrentVideos = (state: RootState) =>
+/**
+ * Get current searched videos by using the RTK query API
+ * @param state
+ */
+export const getCurrentSearchedVideos = (state: RootState) =>
     searchAPI.endpoints.search
       .select(state.searchFilters.text)(state).data;
 
+/**
+ * Get Current Video Object
+ * Get the current selected video obj searching in the video list
+ */
 export const getCurrentVideo = createSelector(
-  [getCurrentVideos, getVideoId],
+  [getCurrentSearchedVideos, getVideoId],
   (videos, currentVideoId) => {
     return videos?.find(item => item.id === currentVideoId)
   }
