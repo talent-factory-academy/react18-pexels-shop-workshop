@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { isItemInCart } from '../store/cart/cart-items.selectors';
+import { isItemInCart } from '../../../core/store/cart/cart-items.selectors';
 import { Video } from '../../../model/pexels-video-response';
 import { convertSecondsInHumanTime } from '../../../shared/utils/time.utils';
 

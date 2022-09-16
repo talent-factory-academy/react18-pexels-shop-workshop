@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Video } from '../../../model/pexels-video-response';
-import { isItemInCart } from '../store/cart/cart-items.selectors';
+import { isItemInCart } from '../../../core/store/cart/cart-items.selectors';
 
 interface VideoPlayerProps {
   video: Video;

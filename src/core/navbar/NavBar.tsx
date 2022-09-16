@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppLogo } from './AppLogo';
 import { CartLogo } from './CartLogo';
 
-import { getTotalCartItems } from '../../pages/catalog/store/cart/cart-items.selectors';
-import { toggleCart } from '../../pages/catalog/store/cart/cart-ui.store';
+import { getTotalCartItems } from '../store/cart/cart-items.selectors';
+import { toggleCart } from '../store/cart/cart-ui.store';
 
 export function NavBar() {
   const totalItems = useSelector(getTotalCartItems);

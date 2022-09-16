@@ -1,4 +1,4 @@
-import { RootState } from '../../../../main';
+import { RootState } from '../../../main';
 
 // HARD CODED VALUE: each video costs 2 euro
 export const SINGLE_VIDEO_PRICE = 2;

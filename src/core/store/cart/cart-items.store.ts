@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Video } from '../../../../model/pexels-video-response';
+import { Video } from '../../../model/pexels-video-response';
 
 export const cartItemsStore = createSlice({
   name: 'cart-items',

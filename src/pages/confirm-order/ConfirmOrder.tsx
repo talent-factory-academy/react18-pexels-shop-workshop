@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getCartItems, getTotalCost } from '../catalog/store/cart/cart-items.selectors';
+import { getCartItems, getTotalCost } from '../../core/store/cart/cart-items.selectors';
 
 export function ConfirmOrder() {
   const cartItems = useSelector(getCartItems);

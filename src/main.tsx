@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import App from './App'
-import { cartStore } from './pages/catalog/store/cart';
+import { cartStore } from './core/store/cart';
 import { catalogStore } from './pages/catalog/store';
 import { videosSearchAPI } from './pages/catalog/store/search/videosSearchAPI';
 

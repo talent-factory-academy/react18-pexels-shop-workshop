@@ -7,14 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import { CartSummaryPanel, CatalogItem, VideoFilters, VideoPlayer } from './components';
 
 // Store Selectors
-import { getCartItems, getTotalCost } from './store/cart/cart-items.selectors';
-import { getCartSummarPanelIsOpened } from './store/cart/cart-ui.selectors';
+import { getCartItems, getTotalCost } from '../../core/store/cart/cart-items.selectors';
+import { getCartSummarPanelIsOpened } from '../../core/store/cart/cart-ui.selectors';
 import { getSelectedVideo } from './store/player/player.selectors';
 import { getFilters } from './store/filters/search-filters.selectors';
 
 // Store Slices
-import { addToCart, clearCart, removeFromCart } from './store/cart/cart-items.store';
-import { closeCart } from './store/cart/cart-ui.store';
+import { addToCart, clearCart, removeFromCart } from '../../core/store/cart/cart-items.store';
+import { closeCart } from '../../core/store/cart/cart-ui.store';
 import { closeVideo, playVideo } from './store/player/player.store';
 import { FiltersState, search } from './store/filters/search-filters.store';
 import { useSearchQuery } from './store/search/videosSearchAPI';

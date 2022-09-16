@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { search } from '../filters/search-filters.store';
+import { search } from '../../../pages/catalog/store/filters/search-filters.store';
 import { addToCart, clearCart } from './cart-items.store';
 
 export const cartUiStore = createSlice({
