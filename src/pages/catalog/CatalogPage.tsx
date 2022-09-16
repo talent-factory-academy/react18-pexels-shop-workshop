@@ -5,11 +5,10 @@ import { getSelectedVideo } from './store/player/player.selectors';
 import { closeVideo, playVideo } from './store/player/player.store';
 import { useSearchQuery } from './store/search/videosSearchAPI';
 import { useDispatch, useSelector } from 'react-redux';
-import { search } from './store/filters/search-filters.store';
+import { FiltersState, search } from './store/filters/search-filters.store';
 import { getFilters } from './store/filters/search-filters.selectors';
 import { VideoPlayer } from './components/VideoPlayer';
 import { CatalogItem } from './components/CatalogItem';
-import { Spinner } from '../../shared/components/Spinner';
 
 export function CatalogPage() {
   const filters = useSelector(getFilters)
@@ -30,7 +29,7 @@ export function CatalogPage() {
         data={data}
         loading={isFetching}
         filters={filters}
-        onChangeFilter={newFilters => dispatch(search(newFilters)) }
+        onChangeFilter={(newFilters: FiltersState) => dispatch(search(newFilters)) }
       />
 
       {/* No results */}
