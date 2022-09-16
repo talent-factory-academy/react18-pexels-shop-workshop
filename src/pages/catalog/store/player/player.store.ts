@@ -20,12 +20,6 @@ export const playerStore = createSlice({
     closeVideo(state) {
       state.video = null;
     },
-  },
-  extraReducers: builder => {
-    // close video player when item is added to cart
-    // builder
-      // close video player when added to cart
-      //.addCase(addToCart, () => ({ videoId: null }))
   }
 });
 

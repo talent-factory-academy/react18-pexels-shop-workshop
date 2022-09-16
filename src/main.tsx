@@ -4,19 +4,19 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import App from './App'
-import { cartStore } from './pages/cart/store/cart.store';
+import { cartStore } from './pages/catalog/store/cart';
 import { catalogStore } from './pages/catalog/store';
 import { videosSearchAPI } from './pages/catalog/store/search/videosSearchAPI';
 
 const rootReducer = combineReducers({
   // Player + filters (Redux Store with combineReducer)
   catalog: catalogStore,
+  // Cart items (Redux Store)
+  cart: cartStore,
   // Video Search API (RTK Query)
   // NOTE: I would move this slice of the store in the `catalog` combineReducer
   // but we must set in root (no combined reducers allowed)
   [videosSearchAPI.reducerPath]: videosSearchAPI.reducer,
-  // Cart items (Redux Store)
-  cart: cartStore.reducer,
 });
 
 // Create the Store type based on rootReducer

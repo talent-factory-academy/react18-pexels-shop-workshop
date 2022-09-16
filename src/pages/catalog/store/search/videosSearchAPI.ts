@@ -4,6 +4,7 @@ import { FiltersState } from '../filters/search-filters.store';
 
 export const videosSearchAPI = createApi({
   reducerPath: 'search',
+  // Pexels Base Api + APIkey
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.pexels.com/videos',
     prepareHeaders: (headers, { getState }) => {
@@ -12,10 +13,10 @@ export const videosSearchAPI = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // query types: return type and query params <Video[], string>
+    // search action: return a list of videos based on a 'text'
+    // and the quantity of videos you want to retrieve (API supports max 80 results)
     search: builder.query<Video[], FiltersState>({
       query: (filters) => `/search?per_page=${filters.totalItems}&query=${filters.text}`,
-      //query: (text) => `/popular`,
       transformResponse: (response: PexelsVideoResponse ) => response.videos,
     }),
   }),

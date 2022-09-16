@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Video } from '../../../model/pexels-video-response';
+import { Video } from '../../../../model/pexels-video-response';
 
-export const cartStore = createSlice({
-  name: 'cart',
+export const cartItemsStore = createSlice({
+  name: 'cart-items',
   initialState: [] as Video[],
   reducers: {
     addToCart(state, action: PayloadAction<Video>) {
       const isAlreadyAdded = state.find(v => v.id === action.payload.id);
       if (!isAlreadyAdded && state.length < 9) {
-        state.push(action.payload)
+        state.unshift(action.payload)
       }
     },
     removeFromCart(state, action: PayloadAction<number>) {
@@ -19,7 +19,7 @@ export const cartStore = createSlice({
     clearCart() {
       return [];
     }
-  }
+  },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartStore.actions
+export const { addToCart, removeFromCart, clearCart } = cartItemsStore.actions
