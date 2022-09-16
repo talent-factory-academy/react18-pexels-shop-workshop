@@ -1,60 +1,47 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 import { addToCart, removeFromCart } from '../cart/store/cart.store';
+import VideoFilters from './components/VideoFilters';
 import { getSelectedVideo } from './store/player/player.selectors';
 import { closeVideo, playVideo } from './store/player/player.store';
-import { useSearchQuery } from './store/search/search.api';
+import { useSearchQuery } from './store/search/videosSearchAPI';
 import { useDispatch, useSelector } from 'react-redux';
-import { search } from './store/search/search-filters.store';
-import { getFilters } from './store/search/search-filters.selectors';
+import { search } from './store/filters/search-filters.store';
+import { getFilters } from './store/filters/search-filters.selectors';
 import { VideoPlayer } from './components/VideoPlayer';
 import { CatalogItem } from './components/CatalogItem';
-import { Spinner } from '../../shared/Spinner';
+import { Spinner } from '../../shared/components/Spinner';
 
-export const CatalogPage: React.FC = () => {
-  const [text, setText] = useState<string>('girls')
+export function CatalogPage() {
   const filters = useSelector(getFilters)
   const selectedVideo = useSelector(getSelectedVideo);
   const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
-    setText(filters.text)
-  }, [filters]);
-
-  const {
-    data, error,isFetching,
-  } = useSearchQuery(filters.text, {
+  const { data, error, isFetching } = useSearchQuery(filters, {
     refetchOnMountOrArgChange: false,
   })
 
-  function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    dispatch(search(text))
-  }
-
-  function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    setText(e.currentTarget.value)
-  }
-
   return (
     <div className="container mx-auto text-center">
-      { error && <div>Error...</div>}
+      {/* Errors */}
+      { error && <div>Server Error</div>}
 
-      {/* Search Form */}
-      <form onSubmit={onSubmitHandler}>
-        <input
-          value={text}
-          onChange={onChangeHandler}
-          className="rounded-xl m-3 text-2xl h-16 w-96 border-slate-300 ring-pink-500 focus:border-pink-500 text-center"
-          type="text"
-          placeholder="Search topic"
-        />
-      </form>
+      {/* Filters */}
+      <VideoFilters
+        data={data}
+        loading={isFetching}
+        filters={filters}
+        onChangeFilter={newFilters => dispatch(search(newFilters)) }
+      />
 
-      {/*Spinner*/}
-      { isFetching &&  <Spinner />}
+      {/* No results */}
+      {
+        !data?.length &&
+          <div className="msg">⚠️ There are no results</div>
+      }
 
-      {/*List*/}
-      <div className="gap-8 mx-6 sm:columns-2 md:columns-3 ">
+
+      {/* List */}
+      <div className="gap-8 mx-6 sm:mx-0 sm:columns-2 md:columns-3 ">
         {
           data?.map(v => <CatalogItem
             video={v}
@@ -66,7 +53,7 @@ export const CatalogPage: React.FC = () => {
         }
       </div>
 
-      {/*Video Player*/}
+      {/* Video Player */}
       {
         selectedVideo && <VideoPlayer
           video={selectedVideo}

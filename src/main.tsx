@@ -5,19 +5,18 @@ import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import App from './App'
 import { cartStore } from './pages/cart/store/cart.store';
-import { playerStore } from './pages/catalog/store/player/player.store';
-import { searchFiltersStore } from './pages/catalog/store/search/search-filters.store';
-import { searchAPI } from './pages/catalog/store/search/search.api';
+import { catalogStore } from './pages/catalog/store';
+import { videosSearchAPI } from './pages/catalog/store/search/videosSearchAPI';
 
 const rootReducer = combineReducers({
-  // Filter State: include the search text
-  searchFilters: searchFiltersStore.reducer,
-  // Video Player:
-  player: playerStore.reducer,
-  // Current Video
+  // Player + filters (Redux Store with combineReducer)
+  catalog: catalogStore,
+  // Video Search API (RTK Query)
+  // NOTE: I would move this slice of the store in the `catalog` combineReducer
+  // but we must set in root (no combined reducers allowed)
+  [videosSearchAPI.reducerPath]: videosSearchAPI.reducer,
+  // Cart items (Redux Store)
   cart: cartStore.reducer,
-  // Search Result (it uses RTK Query)
-  [searchAPI.reducerPath]: searchAPI.reducer,   // <=== must be in root (no combined reducers allowed)
 });
 
 // Create the Store type based on rootReducer
@@ -25,13 +24,13 @@ export type RootState = ReturnType<typeof rootReducer>
 
 // Configure Store
 export const store = configureStore({
-  // store
+  // store root reducer
   reducer: rootReducer,
   // enable devtool in dev mode: https://vitejs.dev/guide/env-and-mode.html
   devTools: import.meta.env.DEV,
   // add RTK query middleware
   middleware: (defaultMiddleware) => {
-    return defaultMiddleware().concat(searchAPI.middleware)
+    return defaultMiddleware().concat(videosSearchAPI.middleware)
   }
 });
 

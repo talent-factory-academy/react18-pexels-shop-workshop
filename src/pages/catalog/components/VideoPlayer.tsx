@@ -33,9 +33,9 @@ export function VideoPlayer(props: VideoPlayerProps) {
       >+</button>
 
       <a
-        className="btn-circle absolute right-5 bottom-20" rel="noreferrer"
+        className="btn-circle absolute right-20 top-5 !bg-slate-600" rel="noreferrer"
         href={props.video?.video_files[0].link} download="attachment_url" target="_blank"
-      >Download</a>
+      > ↓ </a>
 
     </div>
   </div>
