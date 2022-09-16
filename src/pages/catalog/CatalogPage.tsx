@@ -3,12 +3,12 @@ import { addToCart, removeFromCart } from '../cart/store/cart.store';
 import VideoFilters from './components/VideoFilters';
 import { getSelectedVideo } from './store/player/player.selectors';
 import { closeVideo, playVideo } from './store/player/player.store';
-import { useSearchQuery } from './store/search/videosSearchAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiltersState, search } from './store/filters/search-filters.store';
 import { getFilters } from './store/filters/search-filters.selectors';
 import { VideoPlayer } from './components/VideoPlayer';
 import { CatalogItem } from './components/CatalogItem';
+import { useSearchQuery } from './store/search/videosSearchAPI';
 
 export function CatalogPage() {
   const filters = useSelector(getFilters)
