@@ -48,7 +48,7 @@ export function ConfirmOrder() {
             className="btn out"
             disabled={!isEmailValid}
             onClick={() => submitOrder }>
-            ORDER NOW
+            SUBMIT
           </button>
         </div>
       </form>
