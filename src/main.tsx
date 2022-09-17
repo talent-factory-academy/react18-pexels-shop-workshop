@@ -1,12 +1,12 @@
 import './index.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { Provider, useDispatch } from 'react-redux';
+import { Action, AnyAction, combineReducers, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import App from './App'
 import { cartStore } from './core/store/cart';
 import { catalogStore } from './pages/catalog/store';
-import { videosSearchAPI } from './pages/catalog/store/search/videosSearchAPI';
+import { videoSearchApi } from './pages/catalog/store/search/video-search.api';
 
 const rootReducer = combineReducers({
   // Player + filters (Redux Store with combineReducer)
@@ -16,11 +16,19 @@ const rootReducer = combineReducers({
   // Video Search API (RTK Query)
   // NOTE: I would move this slice of the store in the `catalog` combineReducer
   // but we must set in root (no combined reducers allowed)
-  [videosSearchAPI.reducerPath]: videosSearchAPI.reducer,
+  [videoSearchApi.reducerPath]: videoSearchApi.reducer,
 });
 
 // Create the Store type based on rootReducer
 export type RootState = ReturnType<typeof rootReducer>
+
+// Create a type for Async Actions
+export type AppThunk = ThunkAction<void, RootState, null, Action<string>>
+
+// Type to use Thunk and dispatch async actions
+export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;
+export const useAppDispatch = () => useDispatch<AppDispatch>()
+
 
 // Configure Store
 export const store = configureStore({
@@ -30,7 +38,7 @@ export const store = configureStore({
   devTools: import.meta.env.DEV,
   // add RTK query middleware
   middleware: (defaultMiddleware) => {
-    return defaultMiddleware().concat(videosSearchAPI.middleware)
+    return defaultMiddleware().concat(videoSearchApi.middleware)
   }
 });
 

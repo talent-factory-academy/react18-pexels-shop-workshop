@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { PexelsVideoResponse, Video } from '../../../../model/pexels-video-response';
-import { FiltersState } from '../filters/search-filters.store';
+import { FiltersState } from '../../../../model/video-filters';
 
-export const videosSearchAPI = createApi({
+export const videoSearchApi = createApi({
   reducerPath: 'search',
   // Pexels Base Api + APIkey
   baseQuery: fetchBaseQuery({
@@ -24,4 +24,4 @@ export const videosSearchAPI = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useSearchQuery } = videosSearchAPI
+export const { useSearchQuery } = videoSearchApi

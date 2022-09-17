@@ -1,13 +1,11 @@
 import clsx from 'clsx';
 import React, {  useState } from 'react';
+import { FiltersState } from '../../../model/video-filters';
 import { Spinner } from '../../../shared/components/Spinner';
 
-import { FiltersState } from '../store/filters/search-filters.store';
-import { Video } from '../../../model/pexels-video-response';
-
 interface VideoFiltersProps {
-  data: Video[] | undefined;
-  loading: boolean;
+  showPaginator: boolean;
+  showSpinner: boolean;
   filters: FiltersState;
   onChangeFilter: (filters: FiltersState) => void;
 }
@@ -34,12 +32,12 @@ export function VideoFilters(props: VideoFiltersProps) {
           type="text"
           placeholder="Search topic and press ENTER"
         />
-        { props.loading &&  <Spinner />}
+        { props.showSpinner &&  <Spinner />}
       </div>
 
       {/* right col: Paginator */}
       {
-        props.data?.length ?
+        props.showPaginator ?
           <div className="text-right flex gap-2 justify-end">
             {
               ['21', '40', '80'].map(item =>

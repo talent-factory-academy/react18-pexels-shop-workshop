@@ -16,8 +16,8 @@ import { getFilters } from './store/filters/search-filters.selectors';
 import { addToCart, clearCart, removeFromCart } from '../../core/store/cart/cart-items.store';
 import { closeCart } from '../../core/store/cart/cart-ui.store';
 import { closeVideo, playVideo } from './store/player/player.store';
-import { FiltersState, search } from './store/filters/search-filters.store';
-import { useSearchQuery } from './store/search/videosSearchAPI';
+import { search } from './store/filters/search-filters.store';
+import { useSearchQuery } from './store/search/video-search.api';
 
 export function CatalogPage() {
   // selectors
@@ -40,10 +40,10 @@ export function CatalogPage() {
 
       {/* Filters: search for text and total of items to load */}
       <VideoFilters
-        data={data}
-        loading={isFetching}
+        showPaginator={!!data?.length}
+        showSpinner={isFetching}
         filters={filters}
-        onChangeFilter={(newFilters: FiltersState) => dispatch(search(newFilters)) }
+        onChangeFilter={newFilters => dispatch(search(newFilters)) }
       />
 
       {/* No results msg: visible if there are no results && if it's not fetching  */}

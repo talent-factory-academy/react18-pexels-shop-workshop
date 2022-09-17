@@ -1,6 +1,6 @@
 import React  from 'react';
 
-export const Spinner: React.FC = () => {
+export function Spinner() {
   return (
     <div className="flex  items-center m-3">
       <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">

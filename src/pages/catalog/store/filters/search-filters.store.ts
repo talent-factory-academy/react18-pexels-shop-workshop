@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface FiltersState {
-  text: string;
-  totalItems: string;
-}
+import { FiltersState } from '../../../../model/video-filters';
 
 const initialState: FiltersState = {
   text: 'faces',
