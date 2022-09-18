@@ -64,7 +64,6 @@ export const sendOrder_2 = (emailAddress: string): AppThunk => async (dispatch, 
         console.log(emailAddress, getState().cart.items)
         dispatch(sendOrderSuccess())
         dispatch(clearCart())
-
       })
 }
 
